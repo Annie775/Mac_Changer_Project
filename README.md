@@ -44,3 +44,33 @@ Run the script with one of the following options:
 ### 1. Change MAC Address to a User-Specified Value
 ```bash
 python3 mac_changer.py -i <interface> -m <new_mac_address>
+```
+
+### 2. Assign a Random MAC Address
+    python3 mac_changer.py -i <interface> -r
+     Example:
+    python3 mac_changer.py -i eth0 -r
+     Options- -i or --interface  
+      - The name of the network interface (e.g., eth0, wlan0) whose MAC address you want to change.- -m or --mac
+      - The new MAC address to assign to the interface.- -r or --random  
+      - Generates a random MAC address and assigns it to the specified interface.
+ 
+ ## Changing to a Specific MAC Address
+    $ python3 mac_changer.py -i eth0 -m 00:11:22:33:44:55
+    [+] Changing MAC Address of eth0 to 00:11:22:33:44:55
+    [+] Current MAC Address: 00:11:22:33:44:55
+ ## Assigning a Random MAC Address
+    $ python3 mac_changer.py -i eth0 -r
+    [+] Generated Random MAC Address: 3c:2e:3f:1a:8b:7c
+    [+] Changing MAC Address of eth0 to 3c:2e:3f:1a:8b:7c
+    [+] Current MAC Address: 3c:2e:3f:1a:8b:7c
+ ## Error Handling
+     The tool checks for:- Invalid or non-existent network interfaces.- Conflicting options, such as using -r and -m together.- Missing required arguments.
+     Example error messages:
+    [-] Please specify an interface with -i.
+    [-] Please use either -r for a random MAC or -m for a specific MAC, but not both.
+    [-] Could not read MAC Address.
+ 
+ ## Disclaimer 
+     This tool is for educational purposes only. Use responsibly.- Changing MAC addresses may violate the policies of your network provider or organization.
+     Proceed with caution
