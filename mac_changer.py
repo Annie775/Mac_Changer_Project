@@ -5,7 +5,7 @@ import random
 
 def generate_random_mac():
     # Generate a random MAC address
-    mac = [0x00, random.randint(0x00, 0x7f),  # Locally administered address
+    mac = [0x00, random.randint(0x00, 0x7f),  
            random.randint(0x00, 0xff),
            random.randint(0x00, 0xff),
            random.randint(0x00, 0xff),
@@ -55,5 +55,4 @@ def curr_mac_add(interface):
         print("[-] Could not read MAC Address")
 
 option = arguments()
-
-print("Current Mac=> " + str(curr_mac_add(option)))
+print("[+] Current MAC Address: " + str(curr_mac_add(option)))
