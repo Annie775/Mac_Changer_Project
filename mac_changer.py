@@ -35,12 +35,15 @@ def arguments():
     (value, args) = parser.parse_args()
     if not value.interface:
         parser.error("[-] Please specify an interface with -i")
-    else: 
-        if value.random_mac and value.interface:
+    else:
+        if value.random_mac and value.mac_address:
+            parser.error("[-] Please use either -r for a random MAC or -m for a specific MAC, but not both.")
+
+        if value.random_mac:
             random_mac = generate_random_mac()
             print(f"[+] Generated Random MAC Address: {random_mac}")
             mac_changer(value.interface, random_mac)
-        elif value.interface and value.mac_address:
+        elif value.mac_address:
             mac_changer(value.interface, value.mac_address)
         else:
             parser.error("[-] Please specify either -i and -m together, or -r with -i.")
