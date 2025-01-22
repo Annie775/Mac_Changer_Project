@@ -19,11 +19,16 @@ def mac_changer(intf, new_mac):
         print(f"Error: Interface '{intf}' not found. Please provide a valid interface name.")
         exit(0)
 
+    original_mac = curr_mac_add(intf)
+    print(f"[+] Original MAC Address of {intf}: {original_mac}")
+
     subprocess.call(["ifconfig", intf, "down"])
     subprocess.call(["ifconfig", intf, "hw", "ether", new_mac])
     subprocess.call(["ifconfig", intf, "up"])
     print(f"\n[+] Changing MAC Address of {intf} to {new_mac}\n")
-    curr_mac_add(intf)
+
+    updated_mac = curr_mac_add(intf)
+    print(f"[+] Updated MAC Address of {intf}: {updated_mac}")
 
 def arguments():
     parser = optparse.OptionParser()
@@ -50,12 +55,15 @@ def arguments():
         return value.interface
 
 def curr_mac_add(interface):
-    ifc_r = subprocess.check_output(["ifconfig", interface])
-    mac_result = re.search(r"\w\w:\w\w:\w\w:\w\w:\w\w:\w\w", str(ifc_r))
-    if mac_result:
-        return mac_result.group(0)
-    else:
-        print("[-] Could not read MAC Address")
+    try:
+        ifc_r = subprocess.check_output(["ifconfig", interface], text=True)
+        mac_result = re.search(r"\w\w:\w\w:\w\w:\w\w:\w\w:\w\w", ifc_r)
+        if mac_result:
+            return mac_result.group(0)
+        else:
+            return "[-] Could not read MAC Address"
+    except subprocess.CalledProcessError:
+        return f"[-] Error: Unable to fetch MAC address for interface '{interface}'"
 
-option = arguments()
-print("[+] Current MAC Address: " + str(curr_mac_add(option)))
+arguments()
+
