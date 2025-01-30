@@ -21,7 +21,7 @@ This is a Python-based command-line tool that allows users to change the MAC add
 ## Installation
 1. Clone the repository:
     ```bash
-    git clone https://github.com/your-username/mac-address-changer.git
+    git clone https://github.com/Annie775/mac-address-changer.git
     cd mac-address-changer
     ```
 2. Ensure Python 3 is installed on your system:
